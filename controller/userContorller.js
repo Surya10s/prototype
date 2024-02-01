@@ -22,7 +22,7 @@ module.exports.registerUser = wrapasync(async(req,res)=>{
       req.session.username = username 
       res.redirect('/loginform')}catch(e){
         req.flash('edit message',e.message)
-        res.redirect('/registerform')
+        return res.redirect('/registerform')
       }
     })
 module.exports.provideregisterForm = (req,res)=>{
