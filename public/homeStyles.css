@@ -1,0 +1,16 @@
+body {
+    margin: 0; /* Remove default body margin */
+}
+body {
+    background-image: url('/pic/gwendal-cottin-j85t8FTaCcE-unsplash.jpg'); /* Replace with the path to your image */
+    background-size: cover; /* Ensure the background image covers the entire viewport */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+    height: 100%;
+}
+.h1{
+    color: #d31515;
+}
+.container {
+    /* Add your container styles */
+    padding: 20px;
+}

@@ -1,0 +1,118 @@
+<% layout('./layout/boiler') %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div id="map" class="my-3"></div>
+
+      <div class="card mt-2">
+        <% if(message && message.length){ %>
+          <div class="alert alert-warning mb-1 mt-2 alert-dismissible fade show" role="alert">
+            <strong><%=message%></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+
+        <div id="carouselExampleControls" class="carousel" data-interval="false">
+          <div class="carousel-inner">
+            <% detials.images.forEach((element, i) => { %>
+              <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                <img class="d-block w-100" src="<%=element.url %>" alt="">
+              </div>
+            <% }) %>
+          </div>
+          <% if(detials.images.length > 1){ %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          <% } %>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">
+            <%=detials.title%>
+          </h5>
+          <p class="card-text">
+            <%=detials.description %>
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <%= detials.location%>
+          </li>
+          <li class="list-group-item">
+            posted by - <%=detials.author.username%>
+          </li>
+          <li class="list-group-item">
+            <%= detials.Price %>
+          </li>
+          <li class="list-group-item">
+            <%= detials.geo_coordinates.coordinates %>
+          </li>
+        </ul>
+
+        <div class="card-body mb-3">
+          <% if(currentuser && detials.author.equals(currentuser._id)) { %>
+            <a class="card-link btn btn-info my-1" href="/campground/editform/<%=detials._id %>">Edit</a>
+            <form class="d-inline card-linkcocp" action="/campground/delete/<%=detials._id%>/?_method=DELETE" method="post">
+              <button class="btn btn-sm btn-danger">delete</button>
+            </form>
+          <% } %>
+          <a class="card-link btn btn-info m-0" href="/campground">back</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 ">
+      <h2 class="mt-3">Leave a Comments</h2>
+      <form class="mb-3 mt-3 needs-validation" action="/campground/<%=detials.id%>/review" method="post" novalidate>
+        <div>
+          <fieldset class="starability-fade">
+            <input type="radio" id="no-rate" class="input-no-rate" name="Review[rating]" value="0" checked aria-label="No rating." />
+            <input type="radio" id="rate1" name="Review[rating]" value="1" />
+            <label for="rate1">1 star.</label>
+            <input type="radio" id="rate2" name="Review[rating]" value="2" />
+            <label for="rate2">2 stars.</label>
+            <input type="radio" id="rate3" name="Review[rating]" value="3" />
+            <label for="rate3">3 stars.</label>
+            <input type="radio" id="rate4" name="Review[rating]" value="4" />
+            <label for="rate4">4 stars.</label>
+            <input type="radio" id="rate5" name="Review[rating]" value="5" />
+            <label for="rate5">5 stars.</label>
+            <span class="starability-focus-ring"></span>
+          </fieldset>
+        </div>
+        <label class="form-lable" for="body">comments</label>
+        <textarea name="Review[body]" class="form-control mb-3" id="body" cols="30" rows="3" required></textarea>
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <% for(let review of detials.reviews){ %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <p class="card-text"><%=review.author.username %></p>
+            <p class="starability-result" data-rating="<%=review.rating %>">Rated: <%=review.rating %> stars</p>
+            <p class="card-text"><%=review.body %></p>
+            <form method="post" action="/campground/<%= detials.id%>/review/<%=review.id %>?_method=delete">
+              <% if(currentuser && review.author.equals(currentuser._id)){ %>
+                <button class="btn btn-sm btn-danger">delete</button>
+              <% } %>
+            </form>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  var lat= '<%= detials.geo_coordinates.coordinates[0] %>';
+  var long = '<%= detials.geo_coordinates.coordinates[1] %>'
+</script>
+<script src="/javascripts/javascript.js"></script>
+
+<b style="color: blueviolet;font: 2em sans-serif;; " class="cluster-no"></b>

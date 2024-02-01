@@ -1,0 +1,48 @@
+    <% layout('./layout/boiler') %>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+      #map {
+        height: 500px;
+      }
+    </style> -->
+  <div >
+    <div id="map" class="map_cluster"></div>
+</div>
+    <h1>Posts</h1> 
+    <% if(message&&message.length){ %>
+        <div class="  alert alert-warning mb-1 mt-2 alert-dismissible fade show" role="alert">
+        <strong><%=message%></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+        <% } %>
+        <% for (camp of campground){ %>
+            <div class="card mb-3" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <% if(camp.images.length) {%>
+                        <img  class = "img-fluid" src="<%=camp.images[0].url %>" alt="not found">
+                        <% }else{%>
+                            <img  class = "img-fluid" src="https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg" alt="not found">
+                        <%} %>  
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title "><%=camp.title%></h5>
+                            <p class="card-text"><%=camp.description %>
+                            <p> <small class="text-muted"><%=camp.location %></small></p>
+                             <a class="btn btn-primary" href="/campground/detial/<%=camp._id%>">View</a>
+
+                        </div>
+                         
+                    </div>
+                </div>
+            </div>
+        <% } %>        
+                <script>
+                    var encodedContent = '<%= JSON.stringify(campground) %>';
+                </script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf"></script>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+<script src="/javascripts/showpage_clustermap.js"></script>

@@ -1,0 +1,16 @@
+   #map {
+      height: 400px;
+      /* width: 480px; */
+   }
+   .map_cluster{
+    width: 100%;
+   }
+   .cluster-no { 
+      width: 30px;
+      height: 30px; 
+      line-height: 70px; 
+      border-radius: 50%; 
+      text-align: center; 
+      background-color: rgb(163, 165, 163); 
+      color: rgb(28, 28, 28); 
+  } 
