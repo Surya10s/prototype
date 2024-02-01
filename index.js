@@ -19,9 +19,9 @@ const bodyparser = require('body-parser')
 const mongostore = require('connect-mongo')
 const passport = require('passport')
 //---------------------------------------------------------------
-const mongosAtlasUrl = process.env.mongosAtlasUrl
-
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
+const mongosAtlasUrl = process.env.mongosAtlasUrl || 'mongodb://127.0.0.1:27017/yelp-camp'
+const secret  = process.env.secret
+mongoose.connect(mongosAtlasUrl)
   .then(() => console.log('Connected!'))
   .catch(err => console.log("error during connected to the db"))
 
@@ -42,10 +42,10 @@ app.use(mongosanitize());
 app.use(express.urlencoded({extended:true}))
 //---------------------------------------------------------------------
 app.use(session({
-  secret: 'keyboard cat',
+  secret,
   resave: false,
   saveUninitialized: true,
-  store : mongostore.create({mongoUrl : 'mongodb://127.0.0.1:27017/passport-authendication',collectionName:'sessions',touchAfter:24*60*60}),
+  store : mongostore.create({mongoUrl : mongosAtlasUrl,collectionName:'sessions',touchAfter:24*60*60}),
   cookie: { 
     maxAge: 1000*60*60*24
   }

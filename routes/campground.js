@@ -25,7 +25,7 @@ router.get('/editform/:id',isAuthor,isloggedin,controller.provideEditform)
 
 router.get('/newitemform',isloggedin,controller.provideNewitemform)
 
-router.put('/edit/:id',isAuthor,isloggedin,joivalidation,upload.array('image'),controller.editCampground) 
+router.put('/edit/:id',isAuthor,isloggedin,upload.array('image'),joivalidation,controller.editCampground) 
 
 router.post('/newitem',isloggedin,upload.array('image'),joivalidation,controller.addNewitem)
 
