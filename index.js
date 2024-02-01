@@ -21,9 +21,6 @@ const passport = require('passport');
 const { log } = require('console');
 //---------------------------------------------------------------
 
-const mongoUrl = 'mongodb+srv://surya:s9361109264@cluster0.wqlyp.mongodb.net/' 
-// 'mongodb://127.0.0.1:27017/yelp-camp'
-console.log(process.env.mongoAtlasUrl)
 const secret  = process.env.secret
 mongoose.connect(process.env.mongoAtlasUrl)
   .then(() => console.log('Connected!'))
