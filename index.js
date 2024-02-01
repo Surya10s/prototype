@@ -17,11 +17,15 @@ const reviews = require('./routes/review')
 const login_register = require('./routes/login_register')
 const bodyparser = require('body-parser')
 const mongostore = require('connect-mongo')
-const passport = require('passport')
+const passport = require('passport');
+const { log } = require('console');
 //---------------------------------------------------------------
-const mongosAtlasUrl = process.env.mongosAtlasUrl || 'mongodb://127.0.0.1:27017/yelp-camp'
+
+const mongoUrl = 'mongodb+srv://surya:s9361109264@cluster0.wqlyp.mongodb.net/' 
+// 'mongodb://127.0.0.1:27017/yelp-camp'
+console.log(process.env.mongoAtlasUrl)
 const secret  = process.env.secret
-mongoose.connect(mongosAtlasUrl)
+mongoose.connect(process.env.mongoAtlasUrl)
   .then(() => console.log('Connected!'))
   .catch(err => console.log("error during connected to the db"))
 
@@ -45,7 +49,7 @@ app.use(session({
   secret,
   resave: false,
   saveUninitialized: true,
-  store : mongostore.create({mongoUrl : mongosAtlasUrl,collectionName:'sessions',touchAfter:24*60*60}),
+  store : mongostore.create({mongoUrl:`${process.env.mongoAtlasUrl}`,collectionName:'sessions',touchAfter:24*60*60}),
   cookie: { 
     maxAge: 1000*60*60*24
   }
