@@ -8,21 +8,45 @@ const userController = require('../controller/userContorller')
 //-----------------------------------------------------------------------------
 // Initialize Passport
 //using local strategy
+
+
+
 passport.use(new LocalStrategy(
 
- function (username, password, done) {
+  async function (username, password, done) {
+    console.log(username)
+    console.log(password)
+  
+      if(!username) {
+         return done(null, false,{message:'username required'}); }
+          User.findOne({ username: username }).then( async(user)=>{
+          console.log(user)
+          if (!user) { return done(null, false,{message:'username or password is incorrect'}); }
+          const checking =  await bcrypt.compare(password,user.password);
+          if (!checking) { 
+            console.log(checking)
+            return done(null, false,{message:'username and password is incorrect'}); }
+          return done(null, user);
+      
+      })
+    }
+  ));
 
-    if(!username) {
-       return done(null, false,{message:'username required'}); }
-       User.findOne({ username: username }).then((user)=>{
-        if (!user) { return done(null, false,{message:'username or password is incorrect'}); }
-        if (!bcrypt.compare(password,user.password)) { 
-          return done(null, false,{message:'username and password is incorrect'}); }
-        return done(null, user);
+// passport.use(new LocalStrategy(
+
+//  function (username, password, done) {
+
+//     if(!username) {
+//        return done(null, false,{message:'username required'}); }
+//        User.findOne({ username: username }).then((user)=>{
+//         // if (!user) { return done(null, false,{message:'username or password is incorrect'}); }
+//         if (!bcrypt.compare(password,user.password)) { 
+//           return done(null, false,{message:'username and password is incorrect'}); }
+//         return done(null, user);
     
-    })
-  }
-));
+//     })
+//   }
+// ));
 //---------------------------------------------------------------------------------
 //serializing and deserilalizing user form sessions
 passport.serializeUser((user, done) => {

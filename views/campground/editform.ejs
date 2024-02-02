@@ -1,43 +1,57 @@
 <% layout('./layout/boiler') %>
 
-    <div class="row">
-        <h1 class="text-center">Edit Camp</h1>
+<style>
+    body {
+   font-family: 'Arial', sans-serif;
+   display: flex;
+   background-image: url('/pic/snow.jpg'); 
+   background-size: cover;
+   background-position: center;
+   flex-direction: column;
+   min-height: 100vh;
+   overflow-x: hidden;
+   color: #2e2d2d;
+}
+</style>
+    <div class="row mt-5">
+        <h1 class="text-center">Edit Post</h1>
         <div class="col-6 offset-3">
             <form action="/campground/edit/<%=id%>/?_method=PUT" method="post" enctype="multipart/form-data" >
            <div class="mb-3"> 
-                <label class="form-lable" for="camp">Camp Name</label>
+                <label class="form-lable" for="camp">Post Name</label>
                 <input class="form-control" id="camp" type="text" name="campground[title]" value="<%=camp1.title %>">
                
         </div>
         <div class="mb-3">
-                <label class="form-lable" for="loc">Camp Location</label> 
+                <label class="form-lable" for="loc">Location</label> 
                 <input class="form-control" id="loc" type="text" name="campground[location]" value="<%=camp1.location %> ">
             </div>
             <div class="mb-3">
                 <label class="form-lable" for="price">Camp Price</label> 
-            <div class="input-group ">
+            <!-- <div class="input-group ">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">$</span>
                 </div>
                 <input type="text" id="price" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1" name="campground[Price]" value="<%=camp1.Price %>">
-              </div></div>
+              </div></div> -->
     
             <!-- <div class="mb-3">
                 <label class="form-lable" for="image">Image Url</label> 
                 <input class="form-control" id="image" type="text" name="campground[image]" value="<%=camp1.image %>">
             </div> -->
             <div class="mb-3">
-                <label for="formFile" class="form-label">select images</label>
+                <label for="formFile" class="form-label">Images</label>
                 <input class="form-control" type="file"multiple name="image" id="img">
               </div>
             <div class="mb-3">
-                <label class="form-lable" for="description">Description</label> 
+                <label class="form-lable" for="description">Captions</label> 
                 <textarea class="form-control" id="description" type="text" name="campground[description]" ><%=camp1.description %></textarea>
             </div>
-            <button class="btn btn-primary mb-3">save</button>
             <div class="mb-3">
-                <a href="/campground/detial/<%=id%>">back</a>
-            </div>
+                <a class="btn btn-dark" href="/campground/detial/<%=id%>">back</a>
+                <button class="btn btn-dark ">save</button>
+            </div >
+           
             <% camp1.images.forEach((image,i) => { %>
             <img src="<%=image.thumbnail %>" class="img-thumbnail" alt="">
             <input type="checkbox" aria-label="Checkbox for following text input" id="imgae-<%=i%> " name="deleteimage[]" value="<%=image.filename%>">

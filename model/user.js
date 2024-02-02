@@ -6,10 +6,12 @@ const userschema = new Schema({
   username: {
     type : String,
     unique : true,
-    required : true
+    required : true,
+    minlength: 5
   },
   password: {
     type : String,
+    minlength: 5,
     required:true
   }
 });

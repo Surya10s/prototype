@@ -20,9 +20,9 @@ const mongostore = require('connect-mongo')
 const passport = require('passport');
 const { log } = require('console');
 //---------------------------------------------------------------
-
+const mongoUrl = process.env.mongoAtlasUrl
 const secret  = process.env.secret
-mongoose.connect(process.env.mongoAtlasUrl)
+mongoose.connect(mongoUrl)
   .then(() => console.log('Connected!'))
   .catch(err => console.log("error during connected to the db"))
 
@@ -46,7 +46,7 @@ app.use(session({
   secret,
   resave: false,
   saveUninitialized: true,
-  store : mongostore.create({mongoUrl:`${process.env.mongoAtlasUrl}`,collectionName:'sessions',touchAfter:24*60*60}),
+  store : mongostore.create({mongoUrl:`${mongoUrl}`,collectionName:'sessions',touchAfter:24*60*60}),
   cookie: { 
     maxAge: 1000*60*60*24
   }
@@ -111,7 +111,6 @@ app.use('/campground/:id/review',reviews)
 app.use((err,req,res,next)=>{
   const {status = 500,message = 'bad'} = err
   res.status(status)
-  console.log('hitt')
   res.render('campground/error',{message})
   next()
 })

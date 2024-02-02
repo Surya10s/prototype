@@ -13,10 +13,10 @@ imageschema.virtual('thumbnail').get(function(){
 
  const campgroundschema = new mongoose.Schema({ 
     title : String,
-    Price:{
-      type : Number,
-      required : true
-    },
+    // Price:{
+    //   type : Number,
+    //   required : true
+    // },
     description : String,
     location:String,
     geo_coordinates: {

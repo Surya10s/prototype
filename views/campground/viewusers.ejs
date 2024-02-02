@@ -1,0 +1,26 @@
+<% layout('./layout/boiler') %> 
+<style>
+          body {
+         font-family: 'Arial', sans-serif;
+         display: flex;
+         background-image: url('/pic/snow.jpg'); 
+         background-size: cover;
+         background-position: center;
+         flex-direction: column;
+         min-height: 100vh;
+         overflow-x: hidden;
+         color: #2e2d2d;
+      }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4  my-5" >
+            <h1>Peoples</h1>
+            <ul>
+            <% for(let i of items){ %>
+                <li><b><%=i.username%></b></li>
+                <% } %>
+            </ul>
+        </div>
+     </div>
+</div>

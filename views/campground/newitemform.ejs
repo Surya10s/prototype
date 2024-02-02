@@ -1,36 +1,50 @@
 <% layout('./layout/boiler') %>
- <div class="row">
-    <h1 class="text-center">New Item</h1>
+<style>
+  body {
+ font-family: 'Arial', sans-serif;
+ display: flex;
+ background-image: url('/pic/snow.jpg'); 
+ background-size: cover;
+ background-position: center;
+ flex-direction: column;
+ min-height: 100vh;
+ overflow-x: hidden;
+ color: #2e2d2d;
+}
+</style>
+ <div class="row mt-5">
+    <h1 class="text-center">Upload</h1>
     <div class="col-6 offset-3">
     <form action="/campground/newitem" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
        <div class="mb-3"> 
-            <label class="form-lable" for="camp">Camp Name</label>
+            <label class="form-lable" for="camp">Post Name</label>
             <input class="form-control" id="camp" type="text" name="campground[title]" "  required>
            
     </div>
     <div class="mb-3">
-            <label class="form-lable" for="loc">Camp Location</label> 
+            <label class="form-lable" for="loc">Location</label> 
             <input class="form-control" id="loc" type="text" name="campground[location]" " required>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label class="form-lable" for="price">Camp Price</label> 
         <div class="input-group ">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">$</span>
             </div>
             <input type="text" id="price" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1" name="campground[Price]" required>
-          </div></div>
+          </div></div> -->
         <div class="mb-3">
-            <label for="formFile" class="form-label">select images</label>
-            <input class="form-control" type="file"multiple name="image" id="img">
+            <label for="formFile" class="form-label">Images</label>
+            <input class="form-control mb-2" type="file"multiple name="image" id="img">
+            <p>This Image Is Avali To everone so plz be Aware</p>
           </div>
         <div class="mb-3">
-            <label class="form-lable" for="description">Description</label> 
+            <label class="form-lable" for="description">captions</label> 
             <textarea class="form-control" id="description" type="text" required name="campground[description]"></textarea >
         </div>
-        <button class="btn btn-primary mb-3">save</button>
+        <button class="btn btn-dark mb-3">save</button>
+        <a class="btn btn-dark mb-3 href="/campground">back</a>
         <div class="mb-3">
-            <a href="/campground">back</a>
         </div>
 
     </form>

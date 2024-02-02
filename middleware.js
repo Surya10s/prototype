@@ -21,12 +21,12 @@ next()
 
 }
 module.exports.isAuthor = async (req,res,next)=>{
-  const { id } = req.params;
-  const item = await campground.findById(id);
-  if(!item.auther.equals(req.user._id)){
-    req.flash('edit message','you dont have perssion to do that!')
-    return res.redirect(`/campground/${id}`)
-  }
+  // const { id } = req.params;
+  // const item = await campground.findById(id);
+  // if(!item.auther.equals(req.user._id)){
+  //   req.flash('edit message','you dont have perssion to do that!')
+  //   return res.redirect(`/campground/${id}`)
+  // }
   next()
 }
 

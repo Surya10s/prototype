@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add markers to the cluster group
   markersData.forEach(markerData => {
       const marker = L.marker(L.latLng(markerData.lat, markerData.lng));
-      marker.bindPopup(`     <a href="/campground/detial/${markerData.campId}" class="btn btn-primary btn-sm">view</a>`);
+      marker.bindPopup(`     <a href="/campground/detial/${markerData.campId}" class="btn btn-dark btn-sm">view</a>`);
       markersCluster.addLayer(marker);
   });
 

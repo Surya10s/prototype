@@ -3,7 +3,8 @@ const wrapasync = require('../utils/wrapasync')
 const apperror = require('../utils/errorapp')
 const {cloudinary} = require('../Cloudinary_Setup')
 const axios = require('axios')
-
+const User = require('../model/user')
+const user = require('../model/user')
 module.exports.showCampground = wrapasync( async (req,res)=>{
     const camp = await campground.find({})
     res.render('campground/showpage',{campground : camp})
@@ -66,8 +67,11 @@ module.exports.provideEditform = async(req,res,next)=>{
     res.redirect(`/campground/detial/${newone._id}`)
   })
 
+module.exports.viewusers = async (req,res,next)=>{
+  const items = await user.find({})
+  res.render('campground/viewusers',{items})
 
-
+}
   module.exports.addNewitem = async(req,res,next)=>{
 
     try{

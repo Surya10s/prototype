@@ -1,27 +1,30 @@
 const express = require('express')
 const router = express.Router();
-const isloggedin = require('../middleware')
+// const isloggedin = require('../middleware')
+const middleware = require('../middleware')
 const isAuthor = require('../middleware');
 const controller = require('../controller/campgroundController');
 const {joivalidation}= require('../middleware');
 const multer = require('multer')
 const {storage} = require('../Cloudinary_Setup')
 const upload = multer({storage})
-const axios = require('axios')
+const axios = require('axios');
+const campground = require('../model/campground');
 router.get('/',controller.showCampground)
 
-router.get('/location',async(req,res)=>{
-    const { query } = req.query;
-    const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${opencage_apikey}`);
-    const { lat, lng } = response.data.results[0].geometry;
-    console.log(lat,lng);
-    res.send('done')
 
-})
+function isloggedin (req,res,next){
+    if(!req.isAuthenticated()){
+        req.session.redirectto = req.originalUrl
+        req.flash('error','login must')
+        return res.redirect('/loginform')
+      }
+      next()
+}
 
 router.get('/detial/:id',controller.detialCampground)
 
-router.get('/editform/:id',isAuthor,isloggedin,controller.provideEditform)
+router.get('/editform/:id',middleware.isAuthor,isloggedin,controller.provideEditform)
 
 router.get('/newitemform',isloggedin,controller.provideNewitemform)
 
@@ -30,6 +33,8 @@ router.put('/edit/:id',isAuthor,isloggedin,upload.array('image'),joivalidation,c
 router.post('/newitem',isloggedin,upload.array('image'),joivalidation,controller.addNewitem)
 
 router.delete('/delete/:id',isloggedin,controller.deleteCampground)
+
+router.get('/viewusers',controller.viewusers)
 
 module.exports = router
 

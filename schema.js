@@ -32,7 +32,7 @@ module.exports.campgroundshema = joi.object({
       title : joi.string().required().escapeHtml(),
       // image : joi.string().required(),
       description : joi.string().required().escapeHtml(),
-      Price : joi.number().required().min(0).max(10000),
+      // Price : joi.number().required().min(0).max(10000),
       location:joi.string().escapeHtml(),
       deleteimage:joi.array(),
     }).required()

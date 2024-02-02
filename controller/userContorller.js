@@ -10,25 +10,27 @@ module.exports.registerUser = wrapasync(async(req,res)=>{
 
     const {password , username} = req.body
       if(!username ) {
-        req.flash('edit message','username is required')
+        req.flash('error','username is required')
         return res.redirect('/registerform')
         }
         if(!password){   
-          req.flash('edit message','enter the password')
+          req.flash('error','enter the password')
         return res.redirect('/registerform')}
   try{
       const user =  new User({username,password})
        await user.save()
       req.session.username = username 
       res.redirect('/loginform')}catch(e){
-        req.flash('edit message',e.message)
+        req.flash('error',e.message)
         return res.redirect('/registerform')
       }
     })
+
 module.exports.provideregisterForm = (req,res)=>{
   res.render('registerForm')
 }
 let returnto = '/campground'
+
 module.exports.storeReturnTo=(req, res, next)=> {
  
   if ( req.session.redirectto) {
